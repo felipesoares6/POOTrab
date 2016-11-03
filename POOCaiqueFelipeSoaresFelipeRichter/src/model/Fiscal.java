@@ -6,7 +6,7 @@ package model;
  */
 public class Fiscal extends Pessoa {
     private String codigo;
-    public String local;
+    private String local;
     
     public Fiscal(String cpf, String nome, String endereco, String codigo) {
         super(cpf, nome, endereco);
