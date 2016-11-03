@@ -26,5 +26,9 @@ public class Candidato extends Pessoa {
         media = notas/pesos;
     }
     
+    public double getMedia (){
+        return media;
+    }
+    
    
 }
