@@ -9,6 +9,26 @@ public class Concurso {
     private String sigla, descricao, dtrealizacao;
     private double taxaInscricao;
     private ArrayList<Prova> provas;
+    private ArrayList<Pessoa> pessoas;
+
+    public ArrayList<Prova> getProvas() {
+        return provas;
+    }
+
+    public void setProvas(ArrayList<Prova> provas) {
+        this.provas = provas;
+    }
+
+    public ArrayList<Pessoa> getPessoas() {
+        return pessoas;
+    }
+
+    public void setPessoas(ArrayList<Pessoa> pessoas) {
+        this.pessoas = pessoas;
+    }
+    public void addPessoa(Pessoa p){
+        this.pessoas.add(p);
+    }
     
     public void addProva(Prova p){
         provas.add(p);

@@ -56,5 +56,8 @@ public class Questao {
         return alternativaGabrito;
     }
     
+    public int getNumero(){
+        return numero;
+    }
     
 }

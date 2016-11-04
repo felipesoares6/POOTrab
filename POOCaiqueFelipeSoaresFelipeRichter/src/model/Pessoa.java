@@ -14,6 +14,10 @@ public class Pessoa {
         this.endereco = endereco;
     }
     
+    public void setConcurso(Concurso concurso) {
+        this.concurso = concurso;
+    }
+    
     public Concurso getConcurso(){
         return concurso;
     }
