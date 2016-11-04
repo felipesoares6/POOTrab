@@ -8,13 +8,17 @@ import java.util.ArrayList;
 public class Concurso {
     private String sigla, descricao, dtrealizacao;
     private double taxaInscricao;
-    private ArrayList<Concurso> concursos;  
+    private ArrayList<Prova> provas;
+    
+    public void addProva(Prova p){
+        provas.add(p);
+        p.setConcurso(this);
+    }
     
     public Concurso(String sigla, String descricao, String dtrealizacao) {
         this.sigla = sigla;
         this.descricao = descricao;
         this.dtrealizacao = dtrealizacao;
-        concursos = new ArrayList<Concurso>();
     }
     
     public String getSigla() {
