@@ -12,7 +12,6 @@ public class Candidato extends Pessoa {
     public Candidato(String cpf, String nome, String endereco, String inscricao) {
         super(cpf, nome, endereco);
         this.inscricao = inscricao;
-        //duvidaaaaax
         provas = new Prova[1];
     }
 
