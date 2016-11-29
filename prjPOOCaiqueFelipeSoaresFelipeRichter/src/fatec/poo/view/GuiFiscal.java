@@ -48,6 +48,7 @@ public class GuiFiscal extends javax.swing.JFrame {
         txtLocal = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastro FIscal");
 
         jLabel1.setText("Código:");
 

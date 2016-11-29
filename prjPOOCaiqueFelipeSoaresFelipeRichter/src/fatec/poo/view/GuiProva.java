@@ -61,6 +61,7 @@ public class GuiProva extends javax.swing.JFrame {
         btnSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastro Prova");
 
         jLabel1.setText("Prova");
 

@@ -30,6 +30,7 @@ public class GuiMenu extends javax.swing.JFrame {
         jMenuItemSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu");
 
         jMenuCadastro.setText("Cadastro");
 

@@ -49,6 +49,7 @@ public class GuiCandidato extends javax.swing.JFrame {
         txtCPF = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastro Candidato");
 
         jLabel1.setText("Inscrição:");
 
