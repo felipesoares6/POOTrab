@@ -69,6 +69,8 @@ public class DaoFiscal {
            
             if (rs.next() == true) {
                 f = new Fiscal (rs.getString("cpf"), rs.getString("nome"), rs.getString("endereco"), codigo);
+                f.setEmail(rs.getString("email"));
+                f.setTelefone(rs.getString("telefone"));
                 f.setLocal(rs.getString("local"));
             }
         }
