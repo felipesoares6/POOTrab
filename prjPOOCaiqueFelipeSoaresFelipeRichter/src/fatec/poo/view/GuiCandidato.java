@@ -15,7 +15,7 @@ public class GuiCandidato extends javax.swing.JFrame {
     String connectionString = "jdbc:oracle:thin:@apolo:1521:xe";
     String driverString = "oracle.jdbc.driver.OracleDriver";
     String user = "BD1511006";
-    String password = "A1234567a";
+    String password = "A12345678a";
 
     /**
      * Creates new form GuiCandidato
