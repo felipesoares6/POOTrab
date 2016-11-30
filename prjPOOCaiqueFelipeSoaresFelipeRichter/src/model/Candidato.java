@@ -32,6 +32,14 @@ public class Candidato extends Pessoa {
         return media;
     }
     
+    public String getInscricao() {
+        return inscricao;
+    }
+    
+    public void setMedia (double media) {
+        this.media = media;
+    }
+    
     public ArrayList<Prova> getProvas () {
         return provas;
     }
