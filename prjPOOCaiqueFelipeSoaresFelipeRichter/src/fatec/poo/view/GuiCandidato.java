@@ -296,7 +296,7 @@ public class GuiCandidato extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-        candidato = new Candidato(txtInscricao.getText(), txtNome.getText());
+        candidato = new Candidato(txtCPF.getText(), txtInscricao.getText(), txtNome.getText(), txtEndereco.getText());
         daoCandidato.inserir(candidato);
          
         txtInscricao.setText("");
