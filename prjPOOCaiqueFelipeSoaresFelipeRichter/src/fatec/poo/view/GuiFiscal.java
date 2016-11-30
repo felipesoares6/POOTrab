@@ -7,6 +7,8 @@ package fatec.poo.view;
 
 import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoCandidato;
+import fatec.poo.control.DaoFiscal;
+import java.sql.Connection;
 import model.Candidato;
 import model.Fiscal;
 
@@ -15,7 +17,10 @@ import model.Fiscal;
  * @author feliperichter
  */
 public class GuiFiscal extends javax.swing.JFrame {
-
+    String connectionString = "jdbc:oracle:thin:@localhost:1521:xe";
+    String driverString = "oracle.jdbc.driver.OracleDriver";
+    String user = "system";
+    String password = "1234";
     /**
      * Creates new form GuiFiscal
      */
@@ -89,7 +94,6 @@ public class GuiFiscal extends javax.swing.JFrame {
 
         jLabel6.setText("Local");
 
-        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
         btnConsultar.setName("btnConsultar"); // NOI18N
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -98,12 +102,15 @@ public class GuiFiscal extends javax.swing.JFrame {
             }
         });
 
-        btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnIncluir.setText("Incluir");
         btnIncluir.setEnabled(false);
         btnIncluir.setName("btnIncluir"); // NOI18N
+        btnIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncluirActionPerformed(evt);
+            }
+        });
 
-        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
         btnAlterar.setName("btnAlterar"); // NOI18N
@@ -113,7 +120,6 @@ public class GuiFiscal extends javax.swing.JFrame {
             }
         });
 
-        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
         btnExcluir.setName("btnExcluir"); // NOI18N
@@ -123,7 +129,6 @@ public class GuiFiscal extends javax.swing.JFrame {
             }
         });
 
-        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
         btnSair.setName("btnSair"); // NOI18N
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -167,7 +172,7 @@ public class GuiFiscal extends javax.swing.JFrame {
                                     .addComponent(txtNome))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                        .addComponent(btnConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                         .addGap(28, 28, 28)
                         .addComponent(btnIncluir)
                         .addGap(26, 26, 26)))
@@ -223,20 +228,87 @@ public class GuiFiscal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-       
+        conexao = new Conexao(user, password);
+        conexao.setDriver(driverString);
+        conexao.setConnectionString(connectionString);
+        Connection conection = conexao.conectar();
+        DaoFiscal daoFiscal = new DaoFiscal(conection);
+        fiscal = daoFiscal.consultar(txtCodigo.getText());
+        if(fiscal != null){
+            txtCPF.setText(fiscal.getCpf());
+            txtEmail.setText(fiscal.getEmail());
+            txtEndereco.setText(fiscal.getEndereco());
+            txtLocal.setText(fiscal.getLocal());
+            txtNome.setText(fiscal.getNome());
+            txtTel.setText(fiscal.getTelefone());
+            btnExcluir.setEnabled(true);
+            btnAlterar.setEnabled(true);
+        }else{
+            txtEmail.setEnabled(true);
+            txtEndereco.setEnabled(true);
+            txtLocal.setEnabled(true);
+            txtNome.setEnabled(true);
+            txtTel.setEnabled(true);
+            btnIncluir.setEnabled(true);
+        }
+        conexao.fecharConexao();
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        // TODO add your handling code here:
+        conexao = new Conexao(user, password);
+        conexao.setDriver(driverString);
+        conexao.setConnectionString(connectionString);
+        Connection conection = conexao.conectar();
+        DaoFiscal daoFiscal = new DaoFiscal(conection);
+        
+        fiscal.setNome(txtCodigo.getText());
+        fiscal.setLocal(txtEndereco.getText());
+        fiscal.setNome(txtNome.getText());
+        fiscal.setEmail(txtEmail.getText());
+        fiscal.setTelefone(txtTel.getText());
+        fiscal.setLocal(txtLocal.getText());
+        
+        daoFiscal.alterar(fiscal);
+        
+        conexao.fecharConexao();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
+        conexao = new Conexao(user, password);
+        conexao.setDriver(driverString);
+        conexao.setConnectionString(connectionString);
+        Connection conection = conexao.conectar();
+        DaoFiscal daoFiscal = new DaoFiscal(conection);
+        
+        daoFiscal.excluir(fiscal);
+        
+        conexao.fecharConexao();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+        conexao = new Conexao(user, password);
+        conexao.setDriver(driverString);
+        conexao.setConnectionString(connectionString);
+        Connection conection = conexao.conectar();
+        DaoFiscal daoFiscal = new DaoFiscal(conection);
+        
+        String cpf = txtCPF.getText();
+        cpf = cpf.replace(".", "");
+        cpf = cpf.replaceAll("-", "");
+
+        fiscal = new Fiscal(cpf, txtNome.getText(), txtEndereco.getText(), txtCodigo.getText());
+        fiscal.setEmail(txtEmail.getText());
+        fiscal.setTelefone(txtTel.getText());
+        fiscal.setLocal(txtLocal.getText());
+        daoFiscal.inserir(fiscal);
+        btnExcluir.setEnabled(true);
+        btnAlterar.setEnabled(true);
+        conexao.fecharConexao();
+    }//GEN-LAST:event_btnIncluirActionPerformed
 
     /**
      * @param args the command line arguments
