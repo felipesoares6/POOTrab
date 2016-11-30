@@ -12,10 +12,10 @@ import model.ValidaCpf;
  * @author Caique
  */
 public class GuiCandidato extends javax.swing.JFrame {
-    String connectionString = "jdbc:oracle:thin:@localhost:1521:xe";
+    String connectionString = "jdbc:oracle:thin:@apolo:1521:xe";
     String driverString = "oracle.jdbc.driver.OracleDriver";
-    String user = "system";
-    String password = "1234";
+    String user = "BD1511006";
+    String password = "A1234567a";
 
     /**
      * Creates new form GuiCandidato
@@ -236,64 +236,44 @@ public class GuiCandidato extends javax.swing.JFrame {
         cpf = cpf.replace(".", "");
         cpf = cpf.replaceAll("-", "");
         
-         if(cpf.equals("")){
-             JOptionPane.showMessageDialog(null,"Insira dados no campo CPF.");
+        candidato = null;
+        candidato = daoCandidato.consultar(txtInscricao.getText());
+
+        if (candidato == null){
+            txtInscricao.setEnabled(false);
+            txtNome.setEnabled(true);
+            txtNome.requestFocus();
+            txtEmail.setEnabled(true);
+            txtEndereco.setEnabled(true);
+            txtTel.setEnabled(true);
+            txtInscricao.setEnabled(false); 
+            txtNome.setEnabled(true);
+
+            btnConsultar.setEnabled(false);
+            btnIncluir.setEnabled(true);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
         }else{
-            if(ValidaCpf.isNumeric(cpf)== false){
-                JOptionPane.showMessageDialog(null, "CPF deve conter apenas dados numéricos.");
-                
-            }else{    
-                if (cpf.length() != 11) {
-                    JOptionPane.showMessageDialog(null, "CPF deve conter 11 números.");
-                }else {
-                   
-                   ValidaCpf validaCpf = new ValidaCpf(txtCPF.getText());
+            txtCPF.setText(candidato.getCpf());
+            txtEmail.setText(candidato.getEmail());
+            txtEndereco.setText(candidato.getEndereco());
+            txtTel.setText(candidato.getTelefone());
+            txtInscricao.setText(candidato.getInscricao());
+            txtNome.setText(candidato.getNome());
 
-                   if (validaCpf.validaCpf(cpf)){
-                       
-                       candidato = null;
-                       candidato = daoCandidato.consultar(txtInscricao.getText());
-                    
-                      if (candidato == null){
-                        txtInscricao.setEnabled(false);
-                        txtNome.setEnabled(true);
-                        txtNome.requestFocus();
-                        txtEmail.setEnabled(true);
-                        txtEndereco.setEnabled(true);
-                        txtTel.setEnabled(true);
-                        txtInscricao.setEnabled(false); 
-                        txtNome.setEnabled(true);
+            txtEmail.setEnabled(true);
+            txtEndereco.setEnabled(true);
+            txtTel.setEnabled(true);
+            txtInscricao.setEnabled(false); 
+            txtNome.setEnabled(true);
 
-                        btnConsultar.setEnabled(false);
-                        btnIncluir.setEnabled(true);
-                        btnAlterar.setEnabled(false);
-                        btnExcluir.setEnabled(false);
-                      }
-                     else{
-                        txtCPF.setText(candidato.getCpf());
-                        txtEmail.setText(candidato.getEmail());
-                        txtEndereco.setText(candidato.getEndereco());
-                        txtTel.setText(candidato.getTelefone());
-                        txtInscricao.setText(candidato.getInscricao());
-                        txtNome.setText(candidato.getNome());
+            btnConsultar.setEnabled(false);
+            btnIncluir.setEnabled(false);
+            btnAlterar.setEnabled(true);
+            btnExcluir.setEnabled(true);
+        }
 
-                        txtEmail.setEnabled(true);
-                        txtEndereco.setEnabled(true);
-                        txtTel.setEnabled(true);
-                        txtInscricao.setEnabled(false); 
-                        txtNome.setEnabled(true);
-
-                        btnConsultar.setEnabled(false);
-                        btnIncluir.setEnabled(false);
-                        btnAlterar.setEnabled(true);
-                        btnExcluir.setEnabled(true);
-                    }
-                      
-                    conexao.fecharConexao();      
-                 }
-               }
-            }
-         }
+        conexao.fecharConexao();      
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
@@ -368,15 +348,11 @@ public class GuiCandidato extends javax.swing.JFrame {
         }else{
             if(ValidaCpf.isNumeric(cpf)== false){
                 JOptionPane.showMessageDialog(null, "CPF deve conter apenas dados numéricos.");
-                
             }else{    
                 if (cpf.length() != 11) {
                     JOptionPane.showMessageDialog(null, "CPF deve conter 11 números.");
                 }else {
-                    
-                    ValidaCpf validaCpf = new ValidaCpf(txtCPF.getText());
-                    
-                    if (validaCpf.validaCpf(cpf)){
+                    if (ValidaCpf.validaCpf(cpf)){
         
                     candidato = new Candidato(cpf, txtNome.getText(), txtEndereco.getText(), txtInscricao.getText());
                     candidato.setTelefone(txtTel.getText());

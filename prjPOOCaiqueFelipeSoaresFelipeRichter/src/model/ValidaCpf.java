@@ -5,11 +5,6 @@ package model;
  * @author felipesoares
  */
 public class ValidaCpf {
-    private String CPF;
-
-    public ValidaCpf(String CPF) {
-        this.CPF = CPF;
-    }
     
     static public boolean isNumeric(String str)  {  
      try  {  

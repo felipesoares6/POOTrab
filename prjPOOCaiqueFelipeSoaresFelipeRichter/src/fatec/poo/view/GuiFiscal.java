@@ -19,10 +19,10 @@ import model.ValidaCpf;
  * @author feliperichter
  */
 public class GuiFiscal extends javax.swing.JFrame {
-    String connectionString = "jdbc:oracle:thin:@localhost:1521:xe";
+    String connectionString = "jdbc:oracle:thin:@apolo:1521:xe";
     String driverString = "oracle.jdbc.driver.OracleDriver";
-    String user = "system";
-    String password = "1234";
+    String user = "BD1511006";
+    String password = "A12345678a";
     /**
      * Creates new form GuiFiscal
      */
@@ -239,45 +239,34 @@ public class GuiFiscal extends javax.swing.JFrame {
         cpf = cpf.replace(".", "");
         cpf = cpf.replaceAll("-", "");
         
-         if(cpf.equals("")){
-             JOptionPane.showMessageDialog(null,"Insira dados no campo CPF.");
-        }else{
-            if(ValidaCpf.isNumeric(cpf)== false){
-                JOptionPane.showMessageDialog(null, "CPF deve conter apenas dados numéricos.");
-                
-            }else{    
-                if (cpf.length() != 11) {
-                    JOptionPane.showMessageDialog(null, "CPF deve conter 11 números.");
-                }else {
-                                     
-                   ValidaCpf validaCpf = new ValidaCpf(txtCPF.getText());
-
-                   if (validaCpf.validaCpf(cpf)){
+        DaoFiscal daoFiscal = new DaoFiscal(conection);
+        fiscal = daoFiscal.consultar(txtCodigo.getText());
         
-                    DaoFiscal daoFiscal = new DaoFiscal(conection);
-                    fiscal = daoFiscal.consultar(txtCodigo.getText());
-                    if(fiscal != null){
-                        txtCPF.setText(fiscal.getCpf());
-                        txtEmail.setText(fiscal.getEmail());
-                        txtEndereco.setText(fiscal.getEndereco());
-                        txtLocal.setText(fiscal.getLocal());
-                        txtNome.setText(fiscal.getNome());
-                        txtTel.setText(fiscal.getTelefone());
-                        btnExcluir.setEnabled(true);
-                        btnAlterar.setEnabled(true);
-                    }else{
-                        txtEmail.setEnabled(true);
-                        txtEndereco.setEnabled(true);
-                        txtLocal.setEnabled(true);
-                        txtNome.setEnabled(true);
-                        txtTel.setEnabled(true);
-                        btnIncluir.setEnabled(true);
-                    }
-                    conexao.fecharConexao();
-                   }
-                }
-            }
-         }
+        if(fiscal != null){
+            txtCPF.setText(fiscal.getCpf());
+            txtEmail.setText(fiscal.getEmail());
+            txtEndereco.setText(fiscal.getEndereco());
+            txtLocal.setText(fiscal.getLocal());
+            txtNome.setText(fiscal.getNome());
+            txtTel.setText(fiscal.getTelefone());
+            
+            txtEmail.setEnabled(true);
+            txtEndereco.setEnabled(true);
+            txtLocal.setEnabled(true);
+            txtNome.setEnabled(true);
+            txtTel.setEnabled(true);
+            
+            btnExcluir.setEnabled(true);
+            btnAlterar.setEnabled(true);
+        }else{
+            txtEmail.setEnabled(true);
+            txtEndereco.setEnabled(true);
+            txtLocal.setEnabled(true);
+            txtNome.setEnabled(true);
+            txtTel.setEnabled(true);
+            btnIncluir.setEnabled(true);
+        }
+        conexao.fecharConexao();
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
@@ -331,16 +320,11 @@ public class GuiFiscal extends javax.swing.JFrame {
         }else{
             if(ValidaCpf.isNumeric(cpf)== false){
                 JOptionPane.showMessageDialog(null, "CPF deve conter apenas dados numéricos.");
-                
             }else{    
                 if (cpf.length() != 11) {
                     JOptionPane.showMessageDialog(null, "CPF deve conter 11 números.");
                 }else {
-                   
-                   ValidaCpf validaCpf = new ValidaCpf(txtCPF.getText());
-
-                   if (validaCpf.validaCpf(cpf)){
-
+                   if (ValidaCpf.validaCpf(cpf)){
                     fiscal = new Fiscal(cpf, txtNome.getText(), txtEndereco.getText(), txtCodigo.getText());
                     fiscal.setEmail(txtEmail.getText());
                     fiscal.setTelefone(txtTel.getText());
@@ -348,11 +332,11 @@ public class GuiFiscal extends javax.swing.JFrame {
                     daoFiscal.inserir(fiscal);
                     btnExcluir.setEnabled(true);
                     btnAlterar.setEnabled(true);
-                    conexao.fecharConexao();
                    }
                  }  
              }
          }
+         conexao.fecharConexao();
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     /**
