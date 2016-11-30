@@ -8,6 +8,7 @@ package fatec.poo.view;
 
 import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoCandidato;
+import java.sql.Connection;
 import javax.swing.JOptionPane;
 import model.Candidato;
 
@@ -16,6 +17,10 @@ import model.Candidato;
  * @author Caique
  */
 public class GuiCandidato extends javax.swing.JFrame {
+    String connectionString = "jdbc:oracle:thin:@localhost:1521:xe";
+    String driverString = "oracle.jdbc.driver.OracleDriver";
+    String user = "system";
+    String password = "1234";
 
     /**
      * Creates new form GuiCandidato
@@ -84,7 +89,6 @@ public class GuiCandidato extends javax.swing.JFrame {
         txtEmail.setEnabled(false);
         txtEmail.setName("txtEmail"); // NOI18N
 
-        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
         btnConsultar.setName("btnConsultar"); // NOI18N
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +97,6 @@ public class GuiCandidato extends javax.swing.JFrame {
             }
         });
 
-        btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnIncluir.setText("Incluir");
         btnIncluir.setEnabled(false);
         btnIncluir.setName("btnIncluir"); // NOI18N
@@ -103,7 +106,6 @@ public class GuiCandidato extends javax.swing.JFrame {
             }
         });
 
-        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
         btnAlterar.setName("btnAlterar"); // NOI18N
@@ -113,7 +115,6 @@ public class GuiCandidato extends javax.swing.JFrame {
             }
         });
 
-        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
         btnExcluir.setName("btnExcluir"); // NOI18N
@@ -123,7 +124,6 @@ public class GuiCandidato extends javax.swing.JFrame {
             }
         });
 
-        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
         btnSair.setName("btnSair"); // NOI18N
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -175,12 +175,12 @@ public class GuiCandidato extends javax.swing.JFrame {
                                     .addComponent(txtCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))))
                         .addGap(18, 18, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                        .addComponent(btnConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(btnIncluir)
                         .addGap(26, 26, 26)))
                 .addComponent(btnAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(btnExcluir)
                 .addGap(18, 18, 18)
                 .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,44 +224,74 @@ public class GuiCandidato extends javax.swing.JFrame {
                     .addComponent(btnAlterar)
                     .addComponent(btnExcluir)
                     .addComponent(btnSair))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-       candidato = null;
-       candidato = daoCandidato.consultar(txtInscricao.getText());
-       
-       if (candidato == null){
-           txtInscricao.setEnabled(false);
-           txtNome.setEnabled(true);
-           txtNome.requestFocus();
-           
-           btnConsultar.setEnabled(false);
-           btnIncluir.setEnabled(true);
-           btnAlterar.setEnabled(false);
-           btnExcluir.setEnabled(false);
-       }
-       else{
-          txtNome.setText(candidato.getNome());
-       
-          txtInscricao.setEnabled(false); 
-          txtNome.setEnabled(true);
-          txtNome.requestFocus();
-          
-          btnConsultar.setEnabled(false);
-          btnIncluir.setEnabled(false);
-          btnAlterar.setEnabled(true);
-          btnExcluir.setEnabled(true);
-       }    
+        conexao = new Conexao(user, password);
+        conexao.setDriver(driverString);
+        conexao.setConnectionString(connectionString);
+        Connection conection = conexao.conectar();
+        DaoCandidato daoCandidato = new DaoCandidato(conection);
+        
+        candidato = null;
+        candidato = daoCandidato.consultar(txtInscricao.getText());
+
+        if (candidato == null){
+            txtInscricao.setEnabled(false);
+            txtNome.setEnabled(true);
+            txtNome.requestFocus();
+            txtEmail.setEnabled(true);
+            txtEndereco.setEnabled(true);
+            txtTel.setEnabled(true);
+            txtInscricao.setEnabled(false); 
+            txtNome.setEnabled(true);
+
+            btnConsultar.setEnabled(false);
+            btnIncluir.setEnabled(true);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+        }
+        else{
+            txtCPF.setText(candidato.getCpf());
+            txtEmail.setText(candidato.getEmail());
+            txtEndereco.setText(candidato.getEndereco());
+            txtTel.setText(candidato.getTelefone());
+            txtInscricao.setText(candidato.getInscricao());
+            txtNome.setText(candidato.getNome());
+
+            txtEmail.setEnabled(true);
+            txtEndereco.setEnabled(true);
+            txtTel.setEnabled(true);
+            txtInscricao.setEnabled(false); 
+            txtNome.setEnabled(true);
+
+            btnConsultar.setEnabled(false);
+            btnIncluir.setEnabled(false);
+            btnAlterar.setEnabled(true);
+            btnExcluir.setEnabled(true);
+        }
+        conexao.fecharConexao();
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){//Sim
-           candidato.setNome(txtNome.getText());
-           daoCandidato.alterar(candidato);
+            conexao = new Conexao(user, password);
+            conexao.setDriver(driverString);
+            conexao.setConnectionString(connectionString);
+            Connection conection = conexao.conectar();
+            DaoCandidato daoCandidato = new DaoCandidato(conection);
+            
+            candidato.setTelefone(txtTel.getText());
+            candidato.setEmail(txtEmail.getText());
+            candidato.setEndereco(txtEndereco.getText());
+            candidato.setNome(txtNome.getText());
+            daoCandidato.alterar(candidato);
+            
+            conexao.fecharConexao();
         } 
         
         txtInscricao.setText("");
@@ -277,6 +307,12 @@ public class GuiCandidato extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0){
+            conexao = new Conexao(user, password);
+            conexao.setDriver(driverString);
+            conexao.setConnectionString(connectionString);
+            Connection conection = conexao.conectar();
+            DaoCandidato daoCandidato = new DaoCandidato(conection);
+            
             daoCandidato.excluir(candidato); 
             
             txtInscricao.setText("");
@@ -288,6 +324,8 @@ public class GuiCandidato extends javax.swing.JFrame {
             btnIncluir.setEnabled(false);
             btnAlterar.setEnabled(false);
             btnExcluir.setEnabled(false);
+            
+            conexao.fecharConexao();
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -296,7 +334,19 @@ public class GuiCandidato extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
-        candidato = new Candidato(txtCPF.getText(), txtInscricao.getText(), txtNome.getText(), txtEndereco.getText());
+        conexao = new Conexao(user, password);
+        conexao.setDriver(driverString);
+        conexao.setConnectionString(connectionString);
+        Connection conection = conexao.conectar();
+        DaoCandidato daoCandidato = new DaoCandidato(conection);
+        String cpf = txtCPF.getText();
+        cpf = cpf.replace(".", "");
+        cpf = cpf.replaceAll("-", "");  
+        candidato = new Candidato(cpf, txtNome.getText(), txtEndereco.getText(), txtInscricao.getText());
+        candidato.setTelefone(txtTel.getText());
+        candidato.setEmail(txtEmail.getText());
+        candidato.setEndereco(txtEndereco.getText());
+        candidato.setMedia(0.0);
         daoCandidato.inserir(candidato);
          
         txtInscricao.setText("");
@@ -304,10 +354,17 @@ public class GuiCandidato extends javax.swing.JFrame {
         btnIncluir.setEnabled(false);
         txtInscricao.setEnabled(true);
         txtNome.setEnabled(false);
+        txtEmail.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtTel.setEnabled(false); 
+        txtNome.setEnabled(false);
+        txtCPF.setEnabled(false);
         txtInscricao.requestFocus();
         
         btnConsultar.setEnabled(true);
         btnIncluir.setEnabled(false);
+
+        conexao.fecharConexao();
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     /**

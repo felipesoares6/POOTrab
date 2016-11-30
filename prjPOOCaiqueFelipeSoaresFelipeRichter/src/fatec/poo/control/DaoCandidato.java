@@ -20,7 +20,7 @@ public class DaoCandidato {
     public void inserir(Candidato candidato) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("INSERT INTO tbFiscal(cpf, nome, endereco, telefone, email, inscricao, media) VALUES(?,?,?,?,?,?,?)");
+            ps = conn.prepareStatement("INSERT INTO tbcandidato(cpf, nome, endereco, telefone, email, inscricao, media) VALUES(?,?,?,?,?,?,?)");
             ps.setString(1, candidato.getCpf());
             ps.setString(2, candidato.getNome());
             ps.setString(3, candidato.getEndereco());
@@ -38,7 +38,7 @@ public class DaoCandidato {
     public void alterar(Candidato candidato) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("UPDATE tbFiscal set cpf = ?, nome = ?, endereco = ?, telefone = ?, email = ?, media = ? " +
+            ps = conn.prepareStatement("UPDATE tbCandidato set cpf = ?, nome = ?, endereco = ?, telefone = ?, email = ?, media = ? " +
                                                  "where inscricao = ?");
             
             ps.setString(1, candidato.getCpf());
