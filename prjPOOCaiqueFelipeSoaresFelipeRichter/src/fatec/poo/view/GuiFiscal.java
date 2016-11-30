@@ -318,7 +318,7 @@ public class GuiFiscal extends javax.swing.JFrame {
          if(cpf.equals("")){
              JOptionPane.showMessageDialog(null,"Insira dados no campo CPF.");
         }else{
-            if(ValidaCpf.isNumeric(cpf)== false){
+            if(!ValidaCpf.isNumeric(cpf)){
                 JOptionPane.showMessageDialog(null, "CPF deve conter apenas dados numéricos.");
             }else{    
                 if (cpf.length() != 11) {
