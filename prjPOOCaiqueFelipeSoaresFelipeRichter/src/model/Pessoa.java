@@ -49,6 +49,10 @@ public class Pessoa {
     public String getEmail() {
         return email;
     }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
     
     
 }

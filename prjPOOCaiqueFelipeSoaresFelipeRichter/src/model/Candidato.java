@@ -17,6 +17,7 @@ public class Candidato extends Pessoa {
         provas = new ArrayList<Prova>();
     }
 
+
     public void calcularMedia() {
         double notas=0, pesos=0;
         
