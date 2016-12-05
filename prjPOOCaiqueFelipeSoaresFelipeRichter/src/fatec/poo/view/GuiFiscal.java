@@ -9,8 +9,10 @@ import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoCandidato;
 import fatec.poo.control.DaoFiscal;
 import java.sql.Connection;
+import javax.swing.JOptionPane;
 import model.Candidato;
 import model.Fiscal;
+import model.ValidaCpf;
 
 /**
  *
@@ -232,26 +234,50 @@ public class GuiFiscal extends javax.swing.JFrame {
         conexao.setDriver(driverString);
         conexao.setConnectionString(connectionString);
         Connection conection = conexao.conectar();
-        DaoFiscal daoFiscal = new DaoFiscal(conection);
-        fiscal = daoFiscal.consultar(txtCodigo.getText());
-        if(fiscal != null){
-            txtCPF.setText(fiscal.getCpf());
-            txtEmail.setText(fiscal.getEmail());
-            txtEndereco.setText(fiscal.getEndereco());
-            txtLocal.setText(fiscal.getLocal());
-            txtNome.setText(fiscal.getNome());
-            txtTel.setText(fiscal.getTelefone());
-            btnExcluir.setEnabled(true);
-            btnAlterar.setEnabled(true);
+        
+        String cpf = txtCPF.getText();
+        cpf = cpf.replace(".", "");
+        cpf = cpf.replaceAll("-", "");
+        
+         if(cpf.equals("")){
+             JOptionPane.showMessageDialog(null,"Insira dados no campo CPF.");
         }else{
-            txtEmail.setEnabled(true);
-            txtEndereco.setEnabled(true);
-            txtLocal.setEnabled(true);
-            txtNome.setEnabled(true);
-            txtTel.setEnabled(true);
-            btnIncluir.setEnabled(true);
-        }
-        conexao.fecharConexao();
+            if(ValidaCpf.isNumeric(cpf)== false){
+                JOptionPane.showMessageDialog(null, "CPF deve conter apenas dados numéricos.");
+                
+            }else{    
+                if (cpf.length() != 11) {
+                    JOptionPane.showMessageDialog(null, "CPF deve conter 11 números.");
+                }else {
+                                     
+                   ValidaCpf validaCpf = new ValidaCpf(txtCPF.getText());
+
+                   if (validaCpf.validaCpf(cpf)){
+        
+                    DaoFiscal daoFiscal = new DaoFiscal(conection);
+                    fiscal = daoFiscal.consultar(txtCodigo.getText());
+                    if(fiscal != null){
+                        txtCPF.setText(fiscal.getCpf());
+                        txtEmail.setText(fiscal.getEmail());
+                        txtEndereco.setText(fiscal.getEndereco());
+                        txtLocal.setText(fiscal.getLocal());
+                        txtNome.setText(fiscal.getNome());
+                        txtTel.setText(fiscal.getTelefone());
+                        btnExcluir.setEnabled(true);
+                        btnAlterar.setEnabled(true);
+                    }else{
+                        txtEmail.setEnabled(true);
+                        txtEndereco.setEnabled(true);
+                        txtLocal.setEnabled(true);
+                        txtNome.setEnabled(true);
+                        txtTel.setEnabled(true);
+                        btnIncluir.setEnabled(true);
+                    }
+                    conexao.fecharConexao();
+                   }
+                }
+            }
+         }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
@@ -299,15 +325,34 @@ public class GuiFiscal extends javax.swing.JFrame {
         String cpf = txtCPF.getText();
         cpf = cpf.replace(".", "");
         cpf = cpf.replaceAll("-", "");
+        
+         if(cpf.equals("")){
+             JOptionPane.showMessageDialog(null,"Insira dados no campo CPF.");
+        }else{
+            if(ValidaCpf.isNumeric(cpf)== false){
+                JOptionPane.showMessageDialog(null, "CPF deve conter apenas dados numéricos.");
+                
+            }else{    
+                if (cpf.length() != 11) {
+                    JOptionPane.showMessageDialog(null, "CPF deve conter 11 números.");
+                }else {
+                   
+                   ValidaCpf validaCpf = new ValidaCpf(txtCPF.getText());
 
-        fiscal = new Fiscal(cpf, txtNome.getText(), txtEndereco.getText(), txtCodigo.getText());
-        fiscal.setEmail(txtEmail.getText());
-        fiscal.setTelefone(txtTel.getText());
-        fiscal.setLocal(txtLocal.getText());
-        daoFiscal.inserir(fiscal);
-        btnExcluir.setEnabled(true);
-        btnAlterar.setEnabled(true);
-        conexao.fecharConexao();
+                   if (validaCpf.validaCpf(cpf)){
+
+                    fiscal = new Fiscal(cpf, txtNome.getText(), txtEndereco.getText(), txtCodigo.getText());
+                    fiscal.setEmail(txtEmail.getText());
+                    fiscal.setTelefone(txtTel.getText());
+                    fiscal.setLocal(txtLocal.getText());
+                    daoFiscal.inserir(fiscal);
+                    btnExcluir.setEnabled(true);
+                    btnAlterar.setEnabled(true);
+                    conexao.fecharConexao();
+                   }
+                 }  
+             }
+         }
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     /**

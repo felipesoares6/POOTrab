@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package fatec.poo.view;
 
 import fatec.poo.control.Conexao;
@@ -11,6 +5,7 @@ import fatec.poo.control.DaoCandidato;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 import model.Candidato;
+import model.ValidaCpf;
 
 /**
  *
@@ -237,44 +232,68 @@ public class GuiCandidato extends javax.swing.JFrame {
         Connection conection = conexao.conectar();
         DaoCandidato daoCandidato = new DaoCandidato(conection);
         
-        candidato = null;
-        candidato = daoCandidato.consultar(txtInscricao.getText());
+        String cpf = txtCPF.getText();
+        cpf = cpf.replace(".", "");
+        cpf = cpf.replaceAll("-", "");
+        
+         if(cpf.equals("")){
+             JOptionPane.showMessageDialog(null,"Insira dados no campo CPF.");
+        }else{
+            if(ValidaCpf.isNumeric(cpf)== false){
+                JOptionPane.showMessageDialog(null, "CPF deve conter apenas dados numéricos.");
+                
+            }else{    
+                if (cpf.length() != 11) {
+                    JOptionPane.showMessageDialog(null, "CPF deve conter 11 números.");
+                }else {
+                   
+                   ValidaCpf validaCpf = new ValidaCpf(txtCPF.getText());
 
-        if (candidato == null){
-            txtInscricao.setEnabled(false);
-            txtNome.setEnabled(true);
-            txtNome.requestFocus();
-            txtEmail.setEnabled(true);
-            txtEndereco.setEnabled(true);
-            txtTel.setEnabled(true);
-            txtInscricao.setEnabled(false); 
-            txtNome.setEnabled(true);
+                   if (validaCpf.validaCpf(cpf)){
+                       
+                       candidato = null;
+                       candidato = daoCandidato.consultar(txtInscricao.getText());
+                    
+                      if (candidato == null){
+                        txtInscricao.setEnabled(false);
+                        txtNome.setEnabled(true);
+                        txtNome.requestFocus();
+                        txtEmail.setEnabled(true);
+                        txtEndereco.setEnabled(true);
+                        txtTel.setEnabled(true);
+                        txtInscricao.setEnabled(false); 
+                        txtNome.setEnabled(true);
 
-            btnConsultar.setEnabled(false);
-            btnIncluir.setEnabled(true);
-            btnAlterar.setEnabled(false);
-            btnExcluir.setEnabled(false);
-        }
-        else{
-            txtCPF.setText(candidato.getCpf());
-            txtEmail.setText(candidato.getEmail());
-            txtEndereco.setText(candidato.getEndereco());
-            txtTel.setText(candidato.getTelefone());
-            txtInscricao.setText(candidato.getInscricao());
-            txtNome.setText(candidato.getNome());
+                        btnConsultar.setEnabled(false);
+                        btnIncluir.setEnabled(true);
+                        btnAlterar.setEnabled(false);
+                        btnExcluir.setEnabled(false);
+                      }
+                     else{
+                        txtCPF.setText(candidato.getCpf());
+                        txtEmail.setText(candidato.getEmail());
+                        txtEndereco.setText(candidato.getEndereco());
+                        txtTel.setText(candidato.getTelefone());
+                        txtInscricao.setText(candidato.getInscricao());
+                        txtNome.setText(candidato.getNome());
 
-            txtEmail.setEnabled(true);
-            txtEndereco.setEnabled(true);
-            txtTel.setEnabled(true);
-            txtInscricao.setEnabled(false); 
-            txtNome.setEnabled(true);
+                        txtEmail.setEnabled(true);
+                        txtEndereco.setEnabled(true);
+                        txtTel.setEnabled(true);
+                        txtInscricao.setEnabled(false); 
+                        txtNome.setEnabled(true);
 
-            btnConsultar.setEnabled(false);
-            btnIncluir.setEnabled(false);
-            btnAlterar.setEnabled(true);
-            btnExcluir.setEnabled(true);
-        }
-        conexao.fecharConexao();
+                        btnConsultar.setEnabled(false);
+                        btnIncluir.setEnabled(false);
+                        btnAlterar.setEnabled(true);
+                        btnExcluir.setEnabled(true);
+                    }
+                      
+                    conexao.fecharConexao();      
+                 }
+               }
+            }
+         }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
@@ -339,32 +358,54 @@ public class GuiCandidato extends javax.swing.JFrame {
         conexao.setConnectionString(connectionString);
         Connection conection = conexao.conectar();
         DaoCandidato daoCandidato = new DaoCandidato(conection);
+        
         String cpf = txtCPF.getText();
         cpf = cpf.replace(".", "");
         cpf = cpf.replaceAll("-", "");  
-        candidato = new Candidato(cpf, txtNome.getText(), txtEndereco.getText(), txtInscricao.getText());
-        candidato.setTelefone(txtTel.getText());
-        candidato.setEmail(txtEmail.getText());
-        candidato.setEndereco(txtEndereco.getText());
-        candidato.setMedia(0.0);
-        daoCandidato.inserir(candidato);
-         
-        txtInscricao.setText("");
-        txtNome.setText("");      
-        btnIncluir.setEnabled(false);
-        txtInscricao.setEnabled(true);
-        txtNome.setEnabled(false);
-        txtEmail.setEnabled(false);
-        txtEndereco.setEnabled(false);
-        txtTel.setEnabled(false); 
-        txtNome.setEnabled(false);
-        txtCPF.setEnabled(false);
-        txtInscricao.requestFocus();
         
-        btnConsultar.setEnabled(true);
-        btnIncluir.setEnabled(false);
+        if(cpf.equals("")){
+             JOptionPane.showMessageDialog(null,"Insira dados no campo CPF.");
+        }else{
+            if(ValidaCpf.isNumeric(cpf)== false){
+                JOptionPane.showMessageDialog(null, "CPF deve conter apenas dados numéricos.");
+                
+            }else{    
+                if (cpf.length() != 11) {
+                    JOptionPane.showMessageDialog(null, "CPF deve conter 11 números.");
+                }else {
+                    
+                    ValidaCpf validaCpf = new ValidaCpf(txtCPF.getText());
+                    
+                    if (validaCpf.validaCpf(cpf)){
+        
+                    candidato = new Candidato(cpf, txtNome.getText(), txtEndereco.getText(), txtInscricao.getText());
+                    candidato.setTelefone(txtTel.getText());
+                    candidato.setEmail(txtEmail.getText());
+                    candidato.setEndereco(txtEndereco.getText());
+                    candidato.setMedia(0.0);
+                    daoCandidato.inserir(candidato);
 
-        conexao.fecharConexao();
+                    txtInscricao.setText("");
+                    txtNome.setText("");      
+                    btnIncluir.setEnabled(false);
+                    txtInscricao.setEnabled(true);
+                    txtNome.setEnabled(false);
+                    txtEmail.setEnabled(false);
+                    txtEndereco.setEnabled(false);
+                    txtTel.setEnabled(false); 
+                    txtNome.setEnabled(false);
+                    txtCPF.setEnabled(false);
+                    txtInscricao.requestFocus();
+
+                    btnConsultar.setEnabled(true);
+                    btnIncluir.setEnabled(false);
+
+                    conexao.fecharConexao();
+                    
+                   }
+                }
+            }
+        }
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     /**
