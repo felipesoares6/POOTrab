@@ -27,7 +27,11 @@ public class GuiMenu extends javax.swing.JFrame {
         jMenuItemFiscal = new javax.swing.JMenuItem();
         jMenuItemCandidato = new javax.swing.JMenuItem();
         jMenuItemMontarProva = new javax.swing.JMenuItem();
+<<<<<<< 34220ba327d2b143972b1fab4b00bb0bfbb08a94
         jMenuItemConcurso = new javax.swing.JMenuItem();
+=======
+        jMenuItem1 = new javax.swing.JMenuItem();
+>>>>>>> Add GuiAlocarFiscal view
         jMenuItemSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -59,6 +63,7 @@ public class GuiMenu extends javax.swing.JFrame {
         });
         jMenuCadastro.add(jMenuItemMontarProva);
 
+<<<<<<< 34220ba327d2b143972b1fab4b00bb0bfbb08a94
         jMenuItemConcurso.setText("Concurso");
         jMenuItemConcurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,6 +71,15 @@ public class GuiMenu extends javax.swing.JFrame {
             }
         });
         jMenuCadastro.add(jMenuItemConcurso);
+=======
+        jMenuItem1.setText("Alocar Fiscal");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenuCadastro.add(jMenuItem1);
+>>>>>>> Add GuiAlocarFiscal view
 
         jMenuItemSair.setText("Sair");
         jMenuItemSair.addActionListener(new java.awt.event.ActionListener() {
@@ -113,6 +127,11 @@ public class GuiMenu extends javax.swing.JFrame {
         new GuiConcurso().setVisible(true);
     }//GEN-LAST:event_jMenuItemConcursoActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        new GuiAlocarFiscal().setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+
     /**
      * @param args the command line arguments
      */
@@ -151,6 +170,7 @@ public class GuiMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCadastro;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItemCandidato;
     private javax.swing.JMenuItem jMenuItemConcurso;
     private javax.swing.JMenuItem jMenuItemFiscal;
