@@ -5,15 +5,20 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoConcurso;
+import java.sql.Connection;
+import model.Concurso;
+
 /**
  *
  * @author feliperichter
  */
 public class GuiConcurso extends javax.swing.JFrame {
-
-    /**
-     * Creates new form GuiConcurso
-     */
+    String connectionString = "jdbc:oracle:thin:@apolo:1521:xe";
+    String driverString = "oracle.jdbc.driver.OracleDriver";
+    String user = "BD1511006";
+    String password = "A12345678a";
     public GuiConcurso() {
         initComponents();
     }
@@ -42,6 +47,7 @@ public class GuiConcurso extends javax.swing.JFrame {
         txtTaxa = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastro Concurso");
 
         jLabel1.setText("Sigla:");
 
@@ -53,21 +59,52 @@ public class GuiConcurso extends javax.swing.JFrame {
 
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnIncluir.setText("Incluir");
         btnIncluir.setEnabled(false);
+        btnIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+
+        txtDescricao.setEnabled(false);
+
+        txtData.setEnabled(false);
+
+        txtTaxa.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,6 +176,80 @@ public class GuiConcurso extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        conexao = new Conexao(user, password);
+        conexao.setDriver(driverString);
+        conexao.setConnectionString(connectionString);
+        Connection conection = conexao.conectar();
+        
+        DaoConcurso daoConcurso = new DaoConcurso(conection);
+        concurso = daoConcurso.consultar(txtSigla.getText());
+        
+        if(concurso != null){
+            txtSigla.setText(concurso.getSigla());
+            txtDescricao.setText(concurso.getDescricao());
+            txtData.setText(concurso.getDtrealizacao());
+            concurso.setTaxaInscricao(Double.valueOf(txtTaxa.getText()));
+            
+            txtDescricao.setEnabled(true);
+            txtData.setEnabled(true);
+            txtTaxa.setEnabled(true);
+            
+            btnExcluir.setEnabled(true);
+            btnAlterar.setEnabled(true);
+        }else{
+            txtDescricao.setEnabled(true);
+            txtData.setEnabled(true);
+            txtTaxa.setEnabled(true);
+            btnIncluir.setEnabled(true);
+        }
+        conexao.fecharConexao();
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+        conexao = new Conexao(user, password);
+        conexao.setDriver(driverString);
+        conexao.setConnectionString(connectionString);
+        Connection conection = conexao.conectar();
+        DaoConcurso daoConcurso = new DaoConcurso(conection);
+        
+        concurso = new Concurso(txtSigla.getText(), txtDescricao.getText(), txtData.getText());
+                    concurso.setTaxaInscricao(Double.valueOf(txtTaxa.getText()));
+                    daoConcurso.inserir(concurso);
+                    btnExcluir.setEnabled(true);
+                    btnAlterar.setEnabled(true);
+    }//GEN-LAST:event_btnIncluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        conexao = new Conexao(user, password);
+        conexao.setDriver(driverString);
+        conexao.setConnectionString(connectionString);
+        Connection conection = conexao.conectar();
+        DaoConcurso daoConcurso = new DaoConcurso(conection);
+        
+        concurso.setSigla(txtSigla.getText());
+        concurso.setDescricao(txtDescricao.getText());
+        concurso.setDtrealizacao(txtData.getText());
+        concurso.setTaxaInscricao(Double.valueOf(txtTaxa.getText()));
+        
+        conexao.fecharConexao();
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        conexao = new Conexao(user, password);
+        conexao.setDriver(driverString);
+        conexao.setConnectionString(connectionString);
+        Connection conection = conexao.conectar();
+        
+        daoConcurso.excluir(concurso);
+        
+        conexao.fecharConexao();
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -189,4 +300,7 @@ public class GuiConcurso extends javax.swing.JFrame {
     private javax.swing.JTextField txtSigla;
     private javax.swing.JTextField txtTaxa;
     // End of variables declaration//GEN-END:variables
+    private DaoConcurso daoConcurso=null;
+    private Concurso concurso=null;
+    private Conexao conexao=null;
 }
