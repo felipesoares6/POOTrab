@@ -31,7 +31,7 @@ public class DaoConcurso {
             ps.setString(1, concurso.getSigla());
             ps.setString(2, concurso.getDescricao());
             ps.setString(3, concurso.getDtrealizacao());
-            ps.setString(4, String.valueOf(concurso.getTaxaInscricao()));
+            ps.setDouble(4, concurso.getTaxaInscricao());
             
             ps.execute();
         } catch (SQLException ex) {
@@ -47,7 +47,7 @@ public class DaoConcurso {
             
             ps.setString(1, concurso.getDescricao());
             ps.setString(2, concurso.getDtrealizacao());
-            ps.setString(3, String.valueOf(concurso.getTaxaInscricao()));
+            ps.setDouble(3, concurso.getTaxaInscricao());
             ps.setString(4, concurso.getSigla());
             
             ps.execute();
@@ -69,7 +69,7 @@ public class DaoConcurso {
 
            if (rs.next() == true) {
                c = new Concurso(rs.getString("sigla"), rs.getString("descricao"), rs.getString("data"));
-               c.setTaxaInscricao(Double.parseDouble(rs.getString("taxa_inscricao")));
+               c.setTaxaInscricao(rs.getDouble("taxa_inscricao"));
            }
        }
        catch (SQLException ex) { 

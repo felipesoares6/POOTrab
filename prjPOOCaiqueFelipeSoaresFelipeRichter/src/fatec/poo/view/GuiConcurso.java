@@ -8,6 +8,7 @@ package fatec.poo.view;
 import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoConcurso;
 import java.sql.Connection;
+import javax.swing.JOptionPane;
 import model.Concurso;
 
 /**
@@ -15,7 +16,7 @@ import model.Concurso;
  * @author feliperichter
  */
 public class GuiConcurso extends javax.swing.JFrame {
-    String connectionString = "jdbc:oracle:thin:@apolo:1521:xe";
+    String connectionString = "jdbc:oracle:thin:@localhost:apolo:xe";
     String driverString = "oracle.jdbc.driver.OracleDriver";
     String user = "BD1511006";
     String password = "A12345678a";
@@ -189,7 +190,7 @@ public class GuiConcurso extends javax.swing.JFrame {
             txtSigla.setText(concurso.getSigla());
             txtDescricao.setText(concurso.getDescricao());
             txtData.setText(concurso.getDtrealizacao());
-            concurso.setTaxaInscricao(Double.valueOf(txtTaxa.getText()));
+            txtTaxa.setText(Double.toString(concurso.getTaxaInscricao()));
             
             txtDescricao.setEnabled(true);
             txtData.setEnabled(true);
@@ -221,29 +222,62 @@ public class GuiConcurso extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        conexao = new Conexao(user, password);
-        conexao.setDriver(driverString);
-        conexao.setConnectionString(connectionString);
-        Connection conection = conexao.conectar();
-        DaoConcurso daoConcurso = new DaoConcurso(conection);
+        if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){//Sim
+            conexao = new Conexao(user, password);
+            conexao.setDriver(driverString);
+            conexao.setConnectionString(connectionString);
+            Connection conection = conexao.conectar();
+            DaoConcurso daoConcurso = new DaoConcurso(conection);
+            
+            concurso.setSigla(txtSigla.getText());
+            concurso.setDescricao(txtDescricao.getText());
+            concurso.setTaxaInscricao(Double.valueOf(txtTaxa.getText()));
+            concurso.setDtrealizacao(txtData.getText());
+            daoConcurso.alterar(concurso);
+            
+            conexao.fecharConexao();
+        } 
         
-        concurso.setSigla(txtSigla.getText());
-        concurso.setDescricao(txtDescricao.getText());
-        concurso.setDtrealizacao(txtData.getText());
-        concurso.setTaxaInscricao(Double.valueOf(txtTaxa.getText()));
-        
-        conexao.fecharConexao();
+        txtSigla.setText("");
+        txtDescricao.setText("");
+        txtTaxa.setText("");
+        txtData.setText("");
+        txtSigla.setEnabled(true); 
+        txtDescricao.setEnabled(false);
+        txtData.setEnabled(false);
+        txtTaxa.setEnabled(false);
+        btnConsultar.setEnabled(true);
+        btnIncluir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        conexao = new Conexao(user, password);
-        conexao.setDriver(driverString);
-        conexao.setConnectionString(connectionString);
-        Connection conection = conexao.conectar();
-        
-        daoConcurso.excluir(concurso);
-        
-        conexao.fecharConexao();
+        if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0){
+            conexao = new Conexao(user, password);
+            conexao.setDriver(driverString);
+            conexao.setConnectionString(connectionString);
+            Connection conection = conexao.conectar();
+            DaoConcurso daoConcurso = new DaoConcurso(conection);
+            
+            daoConcurso.excluir(concurso); 
+            
+            txtSigla.setText("");
+            txtDescricao.setText("");
+            txtData.setText("");
+            txtTaxa.setText("");
+            txtSigla.setEnabled(true); 
+            txtDescricao.setEnabled(false);
+            txtSigla.requestFocus();
+            txtTaxa.setEnabled(false);
+            txtData.setEnabled(false);
+            btnConsultar.setEnabled(true);
+            btnIncluir.setEnabled(false);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+            
+            conexao.fecharConexao();
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed

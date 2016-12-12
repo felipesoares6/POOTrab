@@ -12,7 +12,7 @@ import model.ValidaCpf;
  * @author Caique
  */
 public class GuiCandidato extends javax.swing.JFrame {
-    String connectionString = "jdbc:oracle:thin:@apolo:1521:xe";
+    String connectionString = "jdbc:oracle:thin:@localhost:apolo:xe";
     String driverString = "oracle.jdbc.driver.OracleDriver";
     String user = "BD1511006";
     String password = "A12345678a";
