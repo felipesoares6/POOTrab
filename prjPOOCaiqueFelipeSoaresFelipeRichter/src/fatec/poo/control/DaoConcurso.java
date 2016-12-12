@@ -68,7 +68,6 @@ public class DaoConcurso {
            ResultSet rs = ps.executeQuery();
 
            if (rs.next() == true) {
-               System.out.println("AEEEEEEE");
                c = new Concurso(rs.getString("sigla"), rs.getString("descricao"), rs.getString("data"));
                c.setTaxaInscricao(rs.getDouble("taxa_inscricao"));
            }
