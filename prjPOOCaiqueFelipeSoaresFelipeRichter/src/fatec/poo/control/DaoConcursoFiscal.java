@@ -72,7 +72,7 @@ public class DaoConcursoFiscal {
        }
     }
     
-    public ArrayList<Fiscal> consultar (String sigla) {
+    public ArrayList<Fiscal> consultarPorSigla (String sigla) {
         ArrayList<Fiscal> f = new ArrayList();
 
         PreparedStatement ps = null;
@@ -92,5 +92,28 @@ public class DaoConcursoFiscal {
              System.out.println(ex.toString());   
         }
         return (f);
+    }
+    
+    public Concurso consultarPorCpf (String cpf) {
+        Concurso c = null;
+
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("SELECT * from tbConcurso_fiscal where " +
+                                       "cpf = ?");
+
+            ps.setString(1, cpf);
+            ResultSet rs = ps.executeQuery();
+
+            DaoFiscal daoFiscal = new DaoFiscal(this.conn);
+            if (rs.next()) {
+                c = new Concurso(rs.getString("sigla"), rs.getString("descricao"), rs.getString("data"));
+                c.setTaxaInscricao(rs.getDouble("taxa_inscricao"));
+            }
+        }
+        catch (SQLException ex) { 
+             System.out.println(ex.toString());   
+        }
+        return (c);
     }
 }
