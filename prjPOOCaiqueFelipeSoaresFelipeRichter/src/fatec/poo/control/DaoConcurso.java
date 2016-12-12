@@ -27,7 +27,7 @@ public class DaoConcurso {
     public void inserir (Concurso concurso) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("INSERT INTO" + "tbConcurso(sigla, descricao, data, taxa_inscricao)"+ "VALUES(?,?,?,?)");
+            ps = conn.prepareStatement("INSERT INTO tbConcurso(sigla, descricao, data, taxa_inscricao) VALUES(?,?,?,?)");
             ps.setString(1, concurso.getSigla());
             ps.setString(2, concurso.getDescricao());
             ps.setString(3, concurso.getDtrealizacao());
