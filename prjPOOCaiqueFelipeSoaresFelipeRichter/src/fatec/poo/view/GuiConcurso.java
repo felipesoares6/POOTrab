@@ -189,7 +189,7 @@ public class GuiConcurso extends javax.swing.JFrame {
             txtSigla.setText(concurso.getSigla());
             txtDescricao.setText(concurso.getDescricao());
             txtData.setText(concurso.getDtrealizacao());
-            concurso.setTaxaInscricao(Double.valueOf(txtTaxa.getText()));
+            txtTaxa.setText(Double.toString(concurso.getTaxaInscricao()));
             
             txtDescricao.setEnabled(true);
             txtData.setEnabled(true);

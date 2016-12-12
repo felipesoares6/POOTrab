@@ -27,11 +27,11 @@ public class DaoConcurso {
     public void inserir (Concurso concurso) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("INSERT INTO tbConcurso(sigla, descricao, data, taxa_inscricao) VALUES(?,?,?,?)");
+            ps = conn.prepareStatement("INSERT INTO" + "tbConcurso(sigla, descricao, data, taxa_inscricao)"+ "VALUES(?,?,?,?)");
             ps.setString(1, concurso.getSigla());
             ps.setString(2, concurso.getDescricao());
             ps.setString(3, concurso.getDtrealizacao());
-            ps.setString(4, String.valueOf(concurso.getTaxaInscricao()));
+            ps.setDouble(4, concurso.getTaxaInscricao());
             
             ps.execute();
         } catch (SQLException ex) {
@@ -47,7 +47,7 @@ public class DaoConcurso {
             
             ps.setString(1, concurso.getDescricao());
             ps.setString(2, concurso.getDtrealizacao());
-            ps.setString(3, String.valueOf(concurso.getTaxaInscricao()));
+            ps.setDouble(3, concurso.getTaxaInscricao());
             ps.setString(4, concurso.getSigla());
             
             ps.execute();
@@ -68,8 +68,9 @@ public class DaoConcurso {
            ResultSet rs = ps.executeQuery();
 
            if (rs.next() == true) {
+               System.out.println("AEEEEEEE");
                c = new Concurso(rs.getString("sigla"), rs.getString("descricao"), rs.getString("data"));
-               c.setTaxaInscricao(Double.parseDouble(rs.getString("taxa_inscricao")));
+               c.setTaxaInscricao(rs.getDouble("taxa_inscricao"));
            }
        }
        catch (SQLException ex) { 
