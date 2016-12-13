@@ -334,9 +334,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnConsultar">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/fatec/poo/view/icon/pesq.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Consultar"/>
         <Property name="name" type="java.lang.String" value="btnConsultar" noResource="true"/>
       </Properties>
@@ -346,9 +343,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnIncluir">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/fatec/poo/view/icon/add.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Incluir"/>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="btnIncluir" noResource="true"/>
@@ -356,9 +350,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnAlterar">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/fatec/poo/view/icon/Alterar.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Alterar"/>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="btnAlterar" noResource="true"/>
@@ -369,9 +360,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnExcluir">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/fatec/poo/view/icon/rem.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Excluir"/>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="btnExcluir" noResource="true"/>
@@ -382,9 +370,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnSair">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/fatec/poo/view/icon/exit.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Sair"/>
         <Property name="name" type="java.lang.String" value="btnSair" noResource="true"/>
       </Properties>

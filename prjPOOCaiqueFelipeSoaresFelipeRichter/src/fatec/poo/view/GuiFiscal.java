@@ -19,7 +19,7 @@ import model.ValidaCpf;
  * @author feliperichter
  */
 public class GuiFiscal extends javax.swing.JFrame {
-    String connectionString = "jdbc:oracle:thin:@localhost:apolo:xe";
+    String connectionString = "jdbc:oracle:thin:@apolo:1521:xe";
     String driverString = "oracle.jdbc.driver.OracleDriver";
     String user = "BD1511006";
     String password = "A12345678a";
@@ -96,7 +96,6 @@ public class GuiFiscal extends javax.swing.JFrame {
 
         jLabel6.setText("Local");
 
-        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
         btnConsultar.setName("btnConsultar"); // NOI18N
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -105,12 +104,10 @@ public class GuiFiscal extends javax.swing.JFrame {
             }
         });
 
-        btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnIncluir.setText("Incluir");
         btnIncluir.setEnabled(false);
         btnIncluir.setName("btnIncluir"); // NOI18N
 
-        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
         btnAlterar.setName("btnAlterar"); // NOI18N
@@ -120,7 +117,6 @@ public class GuiFiscal extends javax.swing.JFrame {
             }
         });
 
-        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
         btnExcluir.setName("btnExcluir"); // NOI18N
@@ -130,7 +126,6 @@ public class GuiFiscal extends javax.swing.JFrame {
             }
         });
 
-        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
         btnSair.setName("btnSair"); // NOI18N
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -172,7 +167,7 @@ public class GuiFiscal extends javax.swing.JFrame {
                                     .addComponent(txtCodigo)
                                     .addComponent(txtCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                                     .addComponent(txtNome))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnConsultar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -234,12 +229,13 @@ public class GuiFiscal extends javax.swing.JFrame {
         conexao.setDriver(driverString);
         conexao.setConnectionString(connectionString);
         Connection conection = conexao.conectar();
+        DaoFiscal daoFiscal = new DaoFiscal(conection);
         
         String cpf = txtCPF.getText();
         cpf = cpf.replace(".", "");
         cpf = cpf.replaceAll("-", "");
         
-        DaoFiscal daoFiscal = new DaoFiscal(conection);
+        fiscal = null;
         fiscal = daoFiscal.consultar(txtCodigo.getText());
         
         if(fiscal != null){
@@ -314,24 +310,40 @@ public class GuiFiscal extends javax.swing.JFrame {
         String cpf = txtCPF.getText();
         cpf = cpf.replace(".", "");
         cpf = cpf.replaceAll("-", "");
-        
-         if(cpf.equals("")){
+          
+        if(cpf.equals("")){
              JOptionPane.showMessageDialog(null,"Insira dados no campo CPF.");
         }else{
-            if(!ValidaCpf.isNumeric(cpf)){
+            if(ValidaCpf.isNumeric(cpf)== false){
                 JOptionPane.showMessageDialog(null, "CPF deve conter apenas dados numéricos.");
             }else{    
                 if (cpf.length() != 11) {
                     JOptionPane.showMessageDialog(null, "CPF deve conter 11 números.");
                 }else {
-                   if (ValidaCpf.validaCpf(cpf)){
+                    if (ValidaCpf.validaCpf(cpf)){
+        
                     fiscal = new Fiscal(cpf, txtNome.getText(), txtEndereco.getText(), txtCodigo.getText());
-                    fiscal.setEmail(txtEmail.getText());
                     fiscal.setTelefone(txtTel.getText());
+                    fiscal.setEmail(txtEmail.getText());
+                    fiscal.setEndereco(txtEndereco.getText());
                     fiscal.setLocal(txtLocal.getText());
                     daoFiscal.inserir(fiscal);
-                    btnExcluir.setEnabled(true);
-                    btnAlterar.setEnabled(true);
+                    txtCodigo.setText("");
+                    txtNome.setText("");      
+                    btnIncluir.setEnabled(false);
+                    txtCodigo.setEnabled(true);
+                    txtNome.setEnabled(false);
+                    txtEmail.setEnabled(false);
+                    txtEndereco.setEnabled(false);
+                    txtTel.setEnabled(false); 
+                    txtNome.setEnabled(false);
+                    txtCPF.setEnabled(false);
+                    txtCodigo.requestFocus();
+
+                    btnConsultar.setEnabled(true);
+                    btnIncluir.setEnabled(false);
+
+                    conexao.fecharConexao();
                    }
                  }  
              }

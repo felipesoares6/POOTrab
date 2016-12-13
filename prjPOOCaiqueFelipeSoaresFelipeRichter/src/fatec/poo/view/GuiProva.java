@@ -113,7 +113,6 @@ public class GuiProva extends javax.swing.JFrame {
         btnAdicionar.setText("Adicionar");
         btnAdicionar.setEnabled(false);
 
-        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
         btnConsultar.setName("btnConsultar"); // NOI18N
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -122,12 +121,10 @@ public class GuiProva extends javax.swing.JFrame {
             }
         });
 
-        btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnIncluir.setText("Incluir");
         btnIncluir.setEnabled(false);
         btnIncluir.setName("btnIncluir"); // NOI18N
 
-        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
         btnAlterar.setName("btnAlterar"); // NOI18N
@@ -137,7 +134,6 @@ public class GuiProva extends javax.swing.JFrame {
             }
         });
 
-        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
         btnExcluir.setName("btnExcluir"); // NOI18N
@@ -147,7 +143,6 @@ public class GuiProva extends javax.swing.JFrame {
             }
         });
 
-        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
         btnSair.setName("btnSair"); // NOI18N
         btnSair.addActionListener(new java.awt.event.ActionListener() {

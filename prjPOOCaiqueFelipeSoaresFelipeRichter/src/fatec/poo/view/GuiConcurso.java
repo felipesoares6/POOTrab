@@ -58,7 +58,6 @@ public class GuiConcurso extends javax.swing.JFrame {
 
         jLabel4.setText("Taxa de Inscrição:");
 
-        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,7 +65,6 @@ public class GuiConcurso extends javax.swing.JFrame {
             }
         });
 
-        btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/add.png"))); // NOI18N
         btnIncluir.setText("Incluir");
         btnIncluir.setEnabled(false);
         btnIncluir.addActionListener(new java.awt.event.ActionListener() {
@@ -75,7 +73,6 @@ public class GuiConcurso extends javax.swing.JFrame {
             }
         });
 
-        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -84,7 +81,6 @@ public class GuiConcurso extends javax.swing.JFrame {
             }
         });
 
-        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/rem.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +89,6 @@ public class GuiConcurso extends javax.swing.JFrame {
             }
         });
 
-        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

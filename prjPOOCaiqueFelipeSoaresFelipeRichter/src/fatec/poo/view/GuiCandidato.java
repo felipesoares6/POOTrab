@@ -12,7 +12,7 @@ import model.ValidaCpf;
  * @author Caique
  */
 public class GuiCandidato extends javax.swing.JFrame {
-    String connectionString = "jdbc:oracle:thin:@localhost:apolo:xe";
+    String connectionString = "jdbc:oracle:thin:@apolo:1521:xe";
     String driverString = "oracle.jdbc.driver.OracleDriver";
     String user = "BD1511006";
     String password = "A12345678a";
@@ -295,9 +295,16 @@ public class GuiCandidato extends javax.swing.JFrame {
         
         txtInscricao.setText("");
         txtNome.setText("");
+        txtCPF.setText("");
+        txtEndereco.setText("");
+        txtTel.setText("");
+        txtEmail.setText("");
         txtInscricao.setEnabled(true); 
         txtNome.setEnabled(false);
         txtInscricao.requestFocus();
+        txtEndereco.setEnabled(false);
+        txtTel.setEnabled(false);
+        txtEmail.setEnabled(false);
         btnConsultar.setEnabled(true);
         btnIncluir.setEnabled(false);
         btnAlterar.setEnabled(false);
@@ -316,6 +323,10 @@ public class GuiCandidato extends javax.swing.JFrame {
             
             txtInscricao.setText("");
             txtNome.setText("");
+            txtCPF.setText("");
+            txtEndereco.setText("");
+            txtTel.setText("");
+            txtEmail.setText("");
             txtInscricao.setEnabled(true); 
             txtNome.setEnabled(false);
             txtInscricao.requestFocus();
@@ -362,7 +373,11 @@ public class GuiCandidato extends javax.swing.JFrame {
                     daoCandidato.inserir(candidato);
 
                     txtInscricao.setText("");
-                    txtNome.setText("");      
+                    txtNome.setText("");
+                    txtCPF.setText("");
+                    txtEndereco.setText("");
+                    txtTel.setText("");
+                    txtEmail.setText("");
                     btnIncluir.setEnabled(false);
                     txtInscricao.setEnabled(true);
                     txtNome.setEnabled(false);

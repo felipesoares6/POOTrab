@@ -1,8 +1,13 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package fatec.poo.view;
 
 /**
  *
- * @author felipesoares
+ * @author feliperichter
  */
 public class GuiMenu extends javax.swing.JFrame {
 
@@ -22,109 +27,95 @@ public class GuiMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenuCadastro = new javax.swing.JMenu();
-        jMenuItemFiscal = new javax.swing.JMenuItem();
-        jMenuItemCandidato = new javax.swing.JMenuItem();
-        jMenuItemMontarProva = new javax.swing.JMenuItem();
-        jMenuItemConcurso = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItemSair = new javax.swing.JMenuItem();
+        Menu = new javax.swing.JMenuBar();
+        Cadastro = new javax.swing.JMenu();
+        MenuItemCandidato = new javax.swing.JMenuItem();
+        MenuItemFiscal = new javax.swing.JMenuItem();
+        MenuItemConcurso = new javax.swing.JMenuItem();
+        MenuItemAlocarFiscal = new javax.swing.JMenuItem();
+        MenuItemMontarProva = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Menu");
 
-        jMenuCadastro.setText("Cadastro");
+        Cadastro.setText("Cadastro");
 
-        jMenuItemFiscal.setText("Fiscal");
-        jMenuItemFiscal.addActionListener(new java.awt.event.ActionListener() {
+        MenuItemCandidato.setText("Candidato");
+        MenuItemCandidato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemFiscalActionPerformed(evt);
+                MenuItemCandidatoActionPerformed(evt);
             }
         });
-        jMenuCadastro.add(jMenuItemFiscal);
+        Cadastro.add(MenuItemCandidato);
 
-        jMenuItemCandidato.setText("Candidato");
-        jMenuItemCandidato.addActionListener(new java.awt.event.ActionListener() {
+        MenuItemFiscal.setText("Fiscal");
+        MenuItemFiscal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCandidatoActionPerformed(evt);
+                MenuItemFiscalActionPerformed(evt);
             }
         });
-        jMenuCadastro.add(jMenuItemCandidato);
+        Cadastro.add(MenuItemFiscal);
 
-        jMenuItemMontarProva.setText("Montar Prova");
-        jMenuItemMontarProva.addActionListener(new java.awt.event.ActionListener() {
+        MenuItemConcurso.setText("Concurso");
+        MenuItemConcurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemMontarProvaActionPerformed(evt);
+                MenuItemConcursoActionPerformed(evt);
             }
         });
-        jMenuCadastro.add(jMenuItemMontarProva);
+        Cadastro.add(MenuItemConcurso);
 
-        jMenuItemConcurso.setText("Concurso");
-        jMenuItemConcurso.addActionListener(new java.awt.event.ActionListener() {
+        MenuItemAlocarFiscal.setText("Alocar Fiscal");
+        MenuItemAlocarFiscal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemConcursoActionPerformed(evt);
+                MenuItemAlocarFiscalActionPerformed(evt);
             }
         });
-        jMenuCadastro.add(jMenuItemConcurso);
-        jMenuItem1.setText("Alocar Fiscal");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        Cadastro.add(MenuItemAlocarFiscal);
+
+        MenuItemMontarProva.setText("Montar Prova");
+        MenuItemMontarProva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                MenuItemMontarProvaActionPerformed(evt);
             }
         });
-        jMenuCadastro.add(jMenuItem1);
+        Cadastro.add(MenuItemMontarProva);
 
-        jMenuItemSair.setText("Sair");
-        jMenuItemSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemSairActionPerformed(evt);
-            }
-        });
-        jMenuCadastro.add(jMenuItemSair);
+        Menu.add(Cadastro);
 
-        jMenuBar1.add(jMenuCadastro);
-
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(Menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 479, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 369, Short.MAX_VALUE)
+            .addGap(0, 277, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItemCandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCandidatoActionPerformed
+    private void MenuItemCandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemCandidatoActionPerformed
         new GuiCandidato().setVisible(true);
-    }//GEN-LAST:event_jMenuItemCandidatoActionPerformed
+    }//GEN-LAST:event_MenuItemCandidatoActionPerformed
 
-    private void jMenuItemFiscalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFiscalActionPerformed
+    private void MenuItemFiscalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemFiscalActionPerformed
         new GuiFiscal().setVisible(true);
-    }//GEN-LAST:event_jMenuItemFiscalActionPerformed
+    }//GEN-LAST:event_MenuItemFiscalActionPerformed
 
-    private void jMenuItemMontarProvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMontarProvaActionPerformed
-        new GuiProva().setVisible(true);
-    }//GEN-LAST:event_jMenuItemMontarProvaActionPerformed
+    private void MenuItemConcursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemConcursoActionPerformed
+         new GuiConcurso().setVisible(true);
+    }//GEN-LAST:event_MenuItemConcursoActionPerformed
 
-    private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
-        dispose();
-    }//GEN-LAST:event_jMenuItemSairActionPerformed
+    private void MenuItemAlocarFiscalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemAlocarFiscalActionPerformed
+         //new GuiAlocarFiscal().setVisible(true);
+    }//GEN-LAST:event_MenuItemAlocarFiscalActionPerformed
 
-    private void jMenuItemConcursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConcursoActionPerformed
-        new GuiConcurso().setVisible(true);
-    }//GEN-LAST:event_jMenuItemConcursoActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        new GuiAlocarFiscal().setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
+    private void MenuItemMontarProvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemMontarProvaActionPerformed
+         new GuiProva().setVisible(true);
+    }//GEN-LAST:event_MenuItemMontarProvaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -133,7 +124,7 @@ public class GuiMenu extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -162,13 +153,12 @@ public class GuiMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenu jMenuCadastro;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItemCandidato;
-    private javax.swing.JMenuItem jMenuItemConcurso;
-    private javax.swing.JMenuItem jMenuItemFiscal;
-    private javax.swing.JMenuItem jMenuItemMontarProva;
-    private javax.swing.JMenuItem jMenuItemSair;
+    private javax.swing.JMenu Cadastro;
+    private javax.swing.JMenuBar Menu;
+    private javax.swing.JMenuItem MenuItemAlocarFiscal;
+    private javax.swing.JMenuItem MenuItemCandidato;
+    private javax.swing.JMenuItem MenuItemConcurso;
+    private javax.swing.JMenuItem MenuItemFiscal;
+    private javax.swing.JMenuItem MenuItemMontarProva;
     // End of variables declaration//GEN-END:variables
 }
