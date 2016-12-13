@@ -1,10 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package fatec.poo.view;
+
+import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoConcurso;
+import fatec.poo.control.DaoConcursoFiscal;
+import fatec.poo.control.DaoFiscal;
+import java.util.ArrayList;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import model.Concurso;
+import model.Fiscal;
 
 /**
  *
@@ -48,12 +52,22 @@ public class GuiAlocarFiscal extends javax.swing.JFrame {
         txtDescConcurso.setEnabled(false);
 
         btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Nome Fiscal:");
 
         cboFiscal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnAdicionar.setText("Adicionar");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarActionPerformed(evt);
+            }
+        });
 
         btnRemover.setText("Remover");
 
@@ -142,8 +156,57 @@ public class GuiAlocarFiscal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+       concurso = null;
+       concurso = daoConcurso.consultar(txtSiglaConcurso.getText());
+
+       if (concurso == null){
+          
+           txtSiglaConcurso.setEnabled(false);
+           txtDescConcurso.setEnabled(true);
+           
+           txtSiglaConcurso.requestFocus();
+      
+           btnPesquisar.setEnabled(false);
+       }
+       else {
+          
+          txtSiglaConcurso.setText(concurso.getSigla());
+          txtDescConcurso.setText(concurso.getDescricao());
+          
+          txtSiglaConcurso.setEnabled(false);
+          txtDescConcurso.setEnabled(true);
+          txtSiglaConcurso.requestFocus();
+          
+          btnPesquisar.setEnabled(false);
+       }
+       
+       fiscais = daoConcursoFiscal.consultar(txtSiglaConcurso.getText());
+        
+        for (Fiscal f : fiscais)  {
+            
+            String linha[] = {f.getCodigo() , f.getNome() , f.getLocal()};
+            
+            modTblAlocarFiscal.addRow(linha);
+        }
+
+        JTable tblFiscaisConcurso = new JTable(modTblAlocarFiscal);
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        fiscal = (Fiscal)cboFiscal.getSelectedItem();
+        
+        fiscal.setSigla(txtSiglaConcurso.getText());
+        
+        daoFiscal.alocarConcurso(fiscal);
+        
+        String linha[] = {fiscal.getCodigo() , fiscal.getNome() , fiscal.getLocal()};
+        
+        modTblAlocarFiscal.addRow(linha);
+    }//GEN-LAST:event_btnAdicionarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,4 +256,12 @@ public class GuiAlocarFiscal extends javax.swing.JFrame {
     private javax.swing.JTextField txtDescConcurso;
     private javax.swing.JTextField txtSiglaConcurso;
     // End of variables declaration//GEN-END:variables
+    private Conexao conexao= null;
+    private Concurso concurso = null;
+    private Fiscal fiscal = null;
+    private DaoFiscal daoFiscal = null;
+    private DaoConcurso daoConcurso = null;
+    private DaoConcursoFiscal daoConcursoFiscal = null;
+    private ArrayList<Fiscal> fiscais = null;
+    private DefaultTableModel modTblAlocarFiscal = null;
 }

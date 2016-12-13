@@ -27,11 +27,8 @@ public class GuiMenu extends javax.swing.JFrame {
         jMenuItemFiscal = new javax.swing.JMenuItem();
         jMenuItemCandidato = new javax.swing.JMenuItem();
         jMenuItemMontarProva = new javax.swing.JMenuItem();
-<<<<<<< 34220ba327d2b143972b1fab4b00bb0bfbb08a94
         jMenuItemConcurso = new javax.swing.JMenuItem();
-=======
         jMenuItem1 = new javax.swing.JMenuItem();
->>>>>>> Add GuiAlocarFiscal view
         jMenuItemSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,7 +60,6 @@ public class GuiMenu extends javax.swing.JFrame {
         });
         jMenuCadastro.add(jMenuItemMontarProva);
 
-<<<<<<< 34220ba327d2b143972b1fab4b00bb0bfbb08a94
         jMenuItemConcurso.setText("Concurso");
         jMenuItemConcurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,7 +67,6 @@ public class GuiMenu extends javax.swing.JFrame {
             }
         });
         jMenuCadastro.add(jMenuItemConcurso);
-=======
         jMenuItem1.setText("Alocar Fiscal");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,7 +74,6 @@ public class GuiMenu extends javax.swing.JFrame {
             }
         });
         jMenuCadastro.add(jMenuItem1);
->>>>>>> Add GuiAlocarFiscal view
 
         jMenuItemSair.setText("Sair");
         jMenuItemSair.addActionListener(new java.awt.event.ActionListener() {
@@ -139,7 +133,7 @@ public class GuiMenu extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
