@@ -42,7 +42,7 @@ public class DaoConcurso {
     public void alterar(Concurso concurso) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("UPDATE tbConcurso DESCRICAO = ?, DATA = ?, TAXA_INSCRICAO = ?" +
+            ps = conn.prepareStatement("UPDATE tbConcurso set DESCRICAO = ?, DATA = ?, TAXA_INSCRICAO = ?" +
                                                  "where SIGLA = ?");
             
             ps.setString(1, concurso.getDescricao());
