@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import model.Fiscal;
 
 /**
@@ -55,31 +56,51 @@ public class DaoFiscal {
              System.out.println(ex.toString());   
         }
     }
-        
-     public Fiscal consultar (String codigo) {
-        Fiscal f = null;
-       
-        PreparedStatement ps = null;
-        try {
-            ps = conn.prepareStatement("SELECT * from tbFiscal where " +
-                                                 "codigo = ?");
-            
-            ps.setString(1, codigo);
-            ResultSet rs = ps.executeQuery();
-           
-            if (rs.next() == true) {
-                f = new Fiscal (rs.getString("cpf"), rs.getString("nome"), rs.getString("endereco"), codigo);
-                f.setEmail(rs.getString("email"));
-                f.setTelefone(rs.getString("telefone"));
-                f.setLocal(rs.getString("local"));
-            }
-        }
-        catch (SQLException ex) { 
-             System.out.println(ex.toString());   
-        }
-        return (f);
-    }    
-     
+
+    public Fiscal consultar (String codigo) {
+       Fiscal f = null;
+
+       PreparedStatement ps = null;
+       try {
+           ps = conn.prepareStatement("SELECT * from tbFiscal where " +
+                                                "codigo = ?");
+
+           ps.setString(1, codigo);
+           ResultSet rs = ps.executeQuery();
+
+           if (rs.next() == true) {
+               f = new Fiscal (rs.getString("cpf"), rs.getString("nome"), rs.getString("endereco"), codigo);
+               f.setEmail(rs.getString("email"));
+               f.setTelefone(rs.getString("telefone"));
+               f.setLocal(rs.getString("local"));
+           }
+       }
+       catch (SQLException ex) { 
+            System.out.println(ex.toString());   
+       }
+       return (f);
+   }    
+   public ArrayList<Fiscal> todosFiscais () {
+       ArrayList<Fiscal> fs = new ArrayList();
+
+       PreparedStatement ps = null;
+       try {
+           ps = conn.prepareStatement("SELECT * from tbFiscal");
+           ResultSet rs = ps.executeQuery();
+
+           while (rs.next() == true) {
+               Fiscal f = new Fiscal (rs.getString("cpf"), rs.getString("nome"), rs.getString("endereco"), rs.getString("codigo"));
+               f.setEmail(rs.getString("email"));
+               f.setTelefone(rs.getString("telefone"));
+               f.setLocal(rs.getString("local"));
+               fs.add(f);
+           }
+       }
+       catch (SQLException ex) { 
+            System.out.println(ex.toString());   
+       }
+       return (fs);
+   }    
      public void excluir(Fiscal fiscal) {
         PreparedStatement ps = null;
         try {

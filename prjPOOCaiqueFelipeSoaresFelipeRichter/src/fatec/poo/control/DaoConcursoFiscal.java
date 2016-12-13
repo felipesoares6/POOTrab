@@ -29,8 +29,8 @@ public class DaoConcursoFiscal {
     public void inserir(Concurso concurso, String cpfFiscal) {
        PreparedStatement ps = null;
        try {
-           ps = conn.prepareStatement("INSERT INTO TBCONCURSO_FISCAL(id, fiscal, sigla) VALUES(?,?,?)");
-           ps.setString(1, String.valueOf(proximo_id()));
+           ps = conn.prepareStatement("INSERT INTO TBCONCURSO_FISCAL(id, cpf, sigla) VALUES(?,?,?)");
+           ps.setInt(1, proximo_id());
            ps.setString(2, cpfFiscal);
            ps.setString(3, concurso.getSigla());
 

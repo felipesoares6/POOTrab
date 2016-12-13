@@ -4,7 +4,13 @@ import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoConcurso;
 import fatec.poo.control.DaoConcursoFiscal;
 import fatec.poo.control.DaoFiscal;
+import java.awt.Component;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.Concurso;
@@ -15,7 +21,12 @@ import model.Fiscal;
  * @author felipesoares
  */
 public class GuiAlocarFiscal extends javax.swing.JFrame {
-
+    String connectionString = "jdbc:oracle:thin:@localhost:1521:xe";
+    String driverString = "oracle.jdbc.driver.OracleDriver";
+    //String user = "BD1511006";
+    //String password = "A12345678a";
+    String user = "system";
+    String password = "1234";
     /**
      * Creates new form GuiAlocarFiscal
      */
@@ -70,6 +81,11 @@ public class GuiAlocarFiscal extends javax.swing.JFrame {
         });
 
         btnRemover.setText("Remover");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
 
         tblFiscaisConcurso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -160,53 +176,66 @@ public class GuiAlocarFiscal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-       concurso = null;
+       conexao = new Conexao(user, password);
+       conexao.setDriver(driverString);
+       conexao.setConnectionString(connectionString);
+       Connection conection = conexao.conectar();
+       daoConcurso = new DaoConcurso(conection);
        concurso = daoConcurso.consultar(txtSiglaConcurso.getText());
-
+       
        if (concurso == null){
-          
            txtSiglaConcurso.setEnabled(false);
            txtDescConcurso.setEnabled(true);
-           
            txtSiglaConcurso.requestFocus();
-      
            btnPesquisar.setEnabled(false);
-       }
-       else {
-          
-          txtSiglaConcurso.setText(concurso.getSigla());
+       } else {
           txtDescConcurso.setText(concurso.getDescricao());
-          
           txtSiglaConcurso.setEnabled(false);
-          txtDescConcurso.setEnabled(true);
-          txtSiglaConcurso.requestFocus();
-          
           btnPesquisar.setEnabled(false);
+          cboFiscal.setEnabled(true);
+          cboFiscal.requestFocus();
+          daoFiscal = new DaoFiscal(conection);
+          
+          ArrayList<Fiscal> fs = daoFiscal.todosFiscais();
+          cboFiscal.setModel(new DefaultComboBoxModel(fs.toArray()));
+          
+          daoConcursoFiscal = new DaoConcursoFiscal(conection);
+                    
+          ArrayList<Fiscal> fsConc = daoConcursoFiscal.consultarPorSigla(concurso.getSigla());
+          
+          for(int a = 0 ; a < fsConc.size() ; a++){
+              //tblFiscaisConcurso.add;
+          }
        }
        
-       fiscais = daoConcursoFiscal.consultar(txtSiglaConcurso.getText());
-        
-        for (Fiscal f : fiscais)  {
-            
-            String linha[] = {f.getCodigo() , f.getNome() , f.getLocal()};
-            
-            modTblAlocarFiscal.addRow(linha);
-        }
-
-        JTable tblFiscaisConcurso = new JTable(modTblAlocarFiscal);
+       conexao.fecharConexao();
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         fiscal = (Fiscal)cboFiscal.getSelectedItem();
+        conexao = new Conexao(user, password);
+        conexao.setDriver(driverString);
+        conexao.setConnectionString(connectionString);
+        Connection conection = conexao.conectar();
+        daoConcursoFiscal = new DaoConcursoFiscal(conection);
         
-        fiscal.setSigla(txtSiglaConcurso.getText());
+        daoConcursoFiscal.inserir(concurso, fiscal.getCpf());
         
-        daoFiscal.alocarConcurso(fiscal);
-        
-        String linha[] = {fiscal.getCodigo() , fiscal.getNome() , fiscal.getLocal()};
-        
-        modTblAlocarFiscal.addRow(linha);
+        conexao.fecharConexao();
     }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        fiscal = (Fiscal)cboFiscal.getSelectedItem();
+        conexao = new Conexao(user, password);
+        conexao.setDriver(driverString);
+        conexao.setConnectionString(connectionString);
+        Connection conection = conexao.conectar();
+        daoConcursoFiscal = new DaoConcursoFiscal(conection);
+        
+        daoConcursoFiscal.excluir(concurso.getSigla(), fiscal.getCpf());
+        
+        conexao.fecharConexao();
+    }//GEN-LAST:event_btnRemoverActionPerformed
 
     /**
      * @param args the command line arguments

@@ -25,4 +25,12 @@ public class Fiscal extends Pessoa {
         return local;
     }   
     
+    @Override
+    public String toString(){
+        return this.getNome();
+    }
+    
+    public Object[] coluna(){
+        return new Object[]{ this.getCodigo(), this.getNome(), this.getLocal()};
+    }
 }
